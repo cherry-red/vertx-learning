@@ -11,6 +11,8 @@ vertx源码分析
 - JDBCClient.createNonShared（创建jdbc client）
 - getConnection（获取连接）：共享线程池，线程池里只有一个线程
 - execute（执行curd）：共享worker线程池，线程池里线程数可以配置
+#### 问题解析
+- 在高并发下，会阻塞在获取连接的线程池上，导致响应时间超时、请求等待等问题
 
 ### redis client queue有数量限制，在高并发下会出现 redis is full异常
 
