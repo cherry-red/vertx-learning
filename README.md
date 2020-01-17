@@ -2,7 +2,7 @@
 vertx源码分析
 
 ## 坑
-### jdbc client 共用一个线程池，且线程池里只有一个线程，导致高并发下，所有的数据库阻塞在获取连接上，响应时间、tps降低。
+### 一、jdbc client 共用一个线程池，且线程池里只有一个线程，导致高并发下，所有的数据库阻塞在获取连接上，响应时间、tps降低。
 解决方案：使用createNonShared，创建jdbc连接，每个Verticle拥有自己的线程池。压测发现，响应时间提高近7倍，tps提高三倍多。
 
 #### 使用路径：
@@ -14,6 +14,6 @@ vertx源码分析
 #### 问题解析
 - 在高并发下，会阻塞在获取连接的线程池上，导致响应时间超时、请求等待等问题
 
-### redis client queue有数量限制，在高并发下会出现 redis is full异常
+### 二、redis client queue有数量限制，在高并发下会出现 redis is full异常
 
-### websocket无法判断失败原因。
+### 三、websocket无法判断失败原因。
